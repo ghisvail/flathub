@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2019 Flathub maintainers -->
+<component type="desktop">
+  <id>org.clipgrab.ClipGrab</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0</project_license>
+  <name>clipgrab</name>
+  <summary>A friendly downloader for YouTube and other sites</summary>
+  <description>
+    <p>
+      ClipGrab is a free downloader and converter for YouTube, Vimeo,
+      Facebook and many other online video sites. It converts downloaded
+      videos to MPEG4, MP3 or other formats in just one easy step.
+    </p>
+  </description>
+  <categories>
+    <category>Network</category>
+  </categories>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://clipgrab.org/assets/clipgrab-download.png</image>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://clipgrab.org</url>
+  <update_contact>support@clipgrab.org</update_contact>
+  <releases>
+    <release version="3.8.4" date="2019-08-11"/>
+  </releases>
+  <content_rating type="oars-1.1"/>
+</component>
