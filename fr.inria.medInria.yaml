@@ -1,0 +1,133 @@
+app-id: fr.inria.medInria
+runtime: org.kde.Platform
+runtime-version: '5.14'
+sdk: org.kde.Sdk
+command: medInria
+rename-icon: medInria
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=fallback-x11
+  - --socket=wayland
+modules:
+  - name: VTK
+    sources:
+      - type: git
+        url: https://github.com/Kitware/VTK
+        commit: c3b3b592c7c7e9a1fd34978a41a119cc681b75d5
+    config-opts:
+      - -DBUILD_TESTING=OFF
+      - -DBUILD_DOCUMENTATION=OFF
+      - -DBUILD_EXAMPLES=OFF
+      - -DVTK_RENDERING_BACKEND=OpenGL2
+      - -DVTK_Group_Qt=ON
+      - -DModule_vtkGUISupportQtOpenGL=ON
+      - -DVTK_QT_VERSION=5
+    buildsystem: cmake-ninja
+
+  - name: ITK
+    sources:
+      - type: git
+        url: https://github.com/InsightSoftwareConsortium/ITK
+        commit: 3e12e7006a5881136414be54216a35bbacb55baa
+    config-opts:
+      - -DBUILD_EXAMPLES:BOOL=OFF
+      - -DBUILD_TESTING:BOOL=OFF
+      - -DModule_ITKIOPhilipsREC:BOOL=ON
+      - -DModule_ITKReview:BOOL=ON
+      - -DModule_ITKVtkGlue:BOOL=ON
+      - -DITK_LEGACY_REMOVE:BOOL=ON
+    buildsystem: cmake-ninja
+    builddir: true
+
+  - name: RPI
+    sources:
+      - type: git
+        url: https://github.com/Inria-Asclepios/RPI
+        commit: 57ef801d0051675254d24973fe8489555a129e2c
+    config-opts:
+      - -DBUILD_SHARED_LIBS:BOOL=ON
+      - -DRPI_BUILD_EXAMPLES:BOOL=OFF
+    buildsystem: cmake-ninja
+    post-install:
+      - 'cp RegistrationAddOn/{*.h,*.txx} $FLATPAK_DEST/include'
+
+  - name: TTK
+    sources:
+      - type: git
+        url: https://github.com/medInria/TTK
+        commit: 400ba174354f183ffbc2eaeeca21e5a3e6155b9c
+    config-opts:
+      - -DBUILD_SHARED_LIBS:BOOL=ON
+      - -DBUILD_TESTING:BOOL=OFF
+    buildsystem: cmake-ninja
+
+  - name: DCMTK
+    sources:
+      - type: git
+        url: https://github.com/DCMTK/dcmtk
+        commit: e4df3575fd590bea865e017c84c8f880a9a6c1c0
+    config-opts:
+      - -DBUILD_APPS:BOOL=OFF
+      - -DBUILD_SHARED_LIBS:BOOL=ON
+      - -DDCMTK_ENABLE_BUILTIN_DICTIONARY:BOOL=ON
+      - -DDCMTK_ENABLE_CXX11:BOOL=ON
+      - -DDCMTK_ENABLE_PRIVATE_TAGS:BOOL=ON
+      - -DDCMTK_ENABLE_STL:BOOL=ON
+      - -DDCMTK_FORCE_FPIC_ON_UNIX:BOOL=ON
+      - -DDCMTK_OVERWRITE_WIN32_COMPILER_FLAGS:BOOL=OFF
+      - -DDCMTK_WIDE_CHAR_FILE_IO_FUNCTIONS:BOOL=OFF
+      - -DDCMTK_WITH_DOXYGEN:BOOL=OFF
+      - -DDCMTK_WITH_ICONV:BOOL=OFF
+      - -DDCMTK_WITH_ICU:BOOL=ON 
+      - -DDCMTK_WITH_OPENSSL:BOOL=OFF 
+      - -DDCMTK_WITH_PNG:BOOL=OFF     
+      - -DDCMTK_WITH_TIFF:BOOL=OFF    
+      - -DDCMTK_WITH_WRAP:BOOL=OFF
+      - -DDCMTK_WITH_XML:BOOL=OFF
+      - -DDCMTK_WITH_ZLIB:BOOL=OFF    
+    buildsystem: cmake-ninja
+
+  - name: QtDCM
+    sources:
+      - type: git
+        url: https://github.com/medInria/qtdcm
+        commit: 58ed10feba7a7185c56abbc1950238b924aaf24a
+    config-opts:
+      - -DBUILD_SHARED_LIBS:BOOL=ON
+      - -DDCMTK_DIR:PATH=/app
+    buildsystem: cmake-ninja
+
+  - name: dtk
+    sources:
+      - type: git
+        url: https://gitlab.inria.fr/dtk/dtk
+        commit: 17989ebed630d26f35dd0021c8b5c478b776873c
+    config-opts:
+      - -DDTK_BUILD_COMPOSER:BOOL=ON
+      - -DDTK_BUILD_DISTRIBUTED:BOOL=ON
+      - -DDTK_BUILD_SCRIPT:BOOL=OFF
+      - -DDTK_BUILD_SUPPORT_COMPOSER:BOOL=OFF
+      - -DDTK_BUILD_SUPPORT_CONTAINER:BOOL=OFF
+      - -DDTK_BUILD_SUPPORT_CORE:BOOL=ON
+      - -DDTK_BUILD_SUPPORT_DISTRIBUTED:BOOL=OFF
+      - -DDTK_BUILD_SUPPORT_GUI:BOOL=ON
+      - -DDTK_BUILD_SUPPORT_MATH:BOOL=ON
+      - -DDTK_BUILD_SUPPORT_PLOT:BOOL=OFF
+      - -DDTK_BUILD_SUPPORT_VR:BOOL=ON
+      - -DDTK_BUILD_WRAPPERS:BOOL=OFF
+    buildsystem: cmake-ninja
+  
+  - name: medInria
+    sources:
+      - type: git
+        url: https://github.com/medInria/medInria-public
+        commit: 18a7525538d1b0309775f5f377ce7d4891c683aa
+    config-opts:
+      - -DBUILD_ALL_PLUGINS:BOOL=OFF
+      - -DBUILD_COMPOSITEDATASET_PLUGIN:BOOL=OFF
+      - -DBUILD_EXAMPLE_PLUGINS:BOOL=OFF
+      - -DBUILD_SHARED_LIBS:BOOL=ON
+      - -DTTK_DIR:PATH=/app/lib
+    buildsystem: cmake-ninja
+    subdir: src
