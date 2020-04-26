@@ -1,0 +1,296 @@
+app-id: org.paraview.ParaView
+runtime: org.kde.Platform
+runtime-version: '5.14'
+sdk: org.kde.Sdk
+command: paraview
+modules:
+  # - name: libfabric
+  #   sources:
+  #     - type: archive
+  #       url: https://www.paraview.org/files/dependencies/libfabric-1.8.0.tar.bz2
+  #       md5: c19c257856cb6e5094e73bf727e2d76c
+  #   config-opts:
+  #     - --enable-shared
+  #     - --disable-static
+
+  # - name: mpich
+  #   sources:
+  #     - type: archive
+  #       url: https://www.paraview.org/files/dependencies/mpich-3.3.tar.gz
+  #       md5: 574af413dc0dc7fbb929a761822beb06
+
+  # - name: zfp
+  #   sources:
+  #     - type: archive
+  #       url: https://www.paraview.org/files/dependencies/zfp-0.5.5.tar.gz
+  #       md5: bc7e5fb1cd4345d17f7b9d470a1f23e7
+  #   config-opts:
+  #   - -DBUILD_EXAMPLES:BOOL=OFF
+  #   - -DBUILD_SHARED_LIBS:BOOL=ON
+  #   - -DBUILD_TESTING:BOOL=OFF
+  #   buildsystem: cmake-ninja
+  #   builddir: true
+  #   cleanup:
+  #     - /include
+  #     - /lib/*.so
+  #     - /lib/cmake
+
+  # - name: adios2
+  #   sources:
+  #     - type: archive
+  #       url: https://www.paraview.org/files/dependencies/adios2-v2.5.0.tar.gz
+  #       md5: a50a6bcd02a0a296484a213dca7f9a11
+  #   config-opts:
+  #     - -DBUILD_SHARED_LIBS:BOOL=ON
+  #     - -DBUILD_TESTING:BOOL=OFF
+  #     - -DADIOS2_BUILD_EXAMPLES:BOOL=OFF
+  #     - -DADIOS2_USE_BZip2:STRING=OFF
+  #     - -DADIOS2_USE_Blosc:STRING=OFF
+  #     - -DADIOS2_USE_DataMan:STRING=OFF
+  #     - -DADIOS2_USE_Fortran:STRING=OFF
+  #     - -DADIOS2_USE_HDF5:STRING=OFF
+  #     - -DADIOS2_USE_MGARD:STRING=OFF
+  #     - -DADIOS2_USE_MPI:STRING=ON
+  #     - -DADIOS2_USE_PNG:STRING=OFF
+  #     - -DADIOS2_USE_Profiling:STRING=OFF
+  #     - -DADIOS2_USE_Python:STRING=OFF
+  #     - -DADIOS2_USE_SSC:STRING=ON
+  #     - -DADIOS2_USE_SST:STRING=ON
+  #     - -DADIOS2_USE_SZ:STRING=OFF
+  #     - -DADIOS2_USE_ZFP:STRING=ON
+  #     - -DADIOS2_USE_ZeroMQ:STRING=OFF
+  #     - -DEVPATH_TRANSPORT_MODULES:BOOL=OFF
+  #   buildsystem: cmake-ninja
+  #   builddir: true
+  #   cleanup:
+  #     - /bin
+  #     - /include
+  #     - /lib/*.so
+  #     - /lib/cmake
+
+  # - name: szip
+  #   sources:
+  #     - type: archive
+  #       url: https://www.paraview.org/files/dependencies/szip-2.1.1.tar.gz
+  #       md5: dd579cf0f26d44afd10a0ad7291fc282
+  #   buildsystem: cmake-ninja
+  #   builddir: true
+  #   cleanup:
+  #     - /include
+  #     - /lib/*.so
+  #     - /lib/cmake
+
+  # - name: hdfh5
+  #   sources:
+  #     - type: archive
+  #       url: https://www.paraview.org/files/dependencies/hdf5-1.10.5.tar.bz2
+  #       md5: 7c19d6b81ee2a3ba7d36f6922b2f90d3
+  #   config-opts:
+  #     - -DBUILD_TESTING:BOOL=OFF
+  #     - -DBUILD_SHARED_LIBS:BOOL=ON
+  #     - -DHDF5_ENABLE_Z_LIB_SUPPORT:BOOL=TRUE
+  #     - -DHDF5_ENABLE_SZIP_SUPPORT:BOOL=TRUE
+  #     - -DHDF5_ENABLE_SZIP_ENCODING:BOOL=TRUE
+  #     - -DHDF5_BUILD_HL_LIB:BOOL=TRUE
+  #     - -DHDF5_BUILD_WITH_INSTALL_NAME:BOOL=ON
+  #     - -DSZIP_INCLUDE_DIR:PATH=/app/include
+  #     - -DSZIP_LIBRARY:FILEPATH=/app/lib/libszip-shared.so
+  #   buildsystem: cmake-ninja
+  #   builddir: true
+  #   cleanup:
+  #     - /bin
+  #     - /include
+  #     - /lib/*.so
+  #     - /lib/cmake
+
+  # - name: gdal
+  #   sources:
+  #     - type: archive
+  #       url: https://www.paraview.org/files/dependencies/gdal-98353693d6f1d607954220b2f8b040375e3d1744.tar.bz2
+  #       md5: 5aa285dcc856f98ce44020ae1ae192cb
+  #   config-opts:
+  #     - -DGDAL_USE_CURL:BOOL=OFF
+  #     - -DGDAL_USE_LIBJPEG_INTERNAL:BOOL=ON
+  #     - -DGDAL_USE_LIBTIFF_INTERNAL:BOOL=ON
+  #     - -DGDAL_ENABLE_FRMT_PDF:BOOL=OFF
+  #     - -DGDAL_ENABLE_FRMT_VRT:BOOL=ON
+  #     - -DOGR_ENABLE_SHP:BOOL=ON
+  #     - -DGDAL_ENABLE_FRMT_MEM:BOOL=ON
+  #     - -DOGR_ENABLE_MEM:BOOL=ON
+  #   buildsystem: cmake-ninja
+  #   builddir: true
+  #   cleanup:
+  #     - /bin
+  #     - /include
+  #     - /lib/*.so
+  #     - /lib/cmake
+  #     - /share
+
+  # - name: netcdf
+  #   sources:
+  #     - type: archive
+  #       url: https://www.paraview.org/files/dependencies/netcdf-c-4.7.0.tar.gz
+  #       md5: 37134a12a49e80c45fb58777aa3e9e3b
+  #   config-opts:
+  #     - -DBUILD_SHARED_LIBS:BOOL=ON
+  #     - -DNC_FIND_SHARED_LIBS:BOOL=ON
+  #     - -DBUILD_TESTING:BOOL=OFF
+  #     - -DENABLE_TESTS:BOOL=OFF
+  #     - -DBUILD_UTILITIES:BOOL=OFF
+  #     - -DUSE_SZIP:BOOL=OFF
+  #     - -DENABLE_DAP:BOOL=OFF
+  #   buildsystem: cmake-ninja
+  #   builddir: true
+  #   cleanup:
+  #     - /bin
+  #     - /include
+  #     - /lib/*.so
+  #     - /lib/cmake
+
+  # - name: boost
+  #   sources:
+  #     - type: archive
+  #       url: https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.bz2
+  #       sha256: 59c9b274bc451cf91a9ba1dd2c7fdcaf5d60b1b3aa83f2c9fa143417cc660722
+  #   buildsystem: simple
+  #   build-commands:
+  #     - ./bootstrap.sh --prefix=/app --with-libraries=program_options,thread,system,iostreams,filesystem
+  #     - ./b2 headers -j $FLATPAK_BUILDER_N_JOBS
+  #     - ./b2 install -j $FLATPAK_BUILDER_N_JOBS
+  #   cleanup:
+  #     - /include
+
+  # - name: las
+  #   sources:
+  #     - type: archive
+  #       url: https://www.paraview.org/files/dependencies/libLAS-1.8.1.tar.bz2
+  #       md5: 2e6a975dafdf57f59a385ccb87eb5919
+  #     - type: patch
+  #       path: patches/las-respect-with-geotiff.patch
+  #   config-opts:
+  #     - -DWITH_GDAL:BOOL=FALSE
+  #     - -DBUILD_OSGEO4W:BOOL=OFF
+  #     - -DWITH_GEOTIFF:BOOL=FALSE
+  #     - -DWITH_LASZIP:BOOL=FALSE
+  #     - -DWITH_TESTS:BOOL=FALSE
+  #     - -DWITH_UTILITIES:BOOL=FALSE
+  #     - -DBoost_USE_STATIC_LIBS:BOOL=FALSE
+  #   buildsystem: cmake-ninja
+  #   builddir: true
+  #   cleanup:
+  #     - /include
+  #     - /lib/*.so
+  #     - /lib/cmake
+
+  - name: tbb
+    sources:
+      - type: git
+        url: https://github.com/oneapi-src/oneTBB
+        tag: v2020.2
+    buildsystem: simple
+    build-commands:
+      - 'make -j $FLATPAK_BUILDER_N_JOBS default'
+      - 'install -d $FLATPAK_DEST/lib'
+      - 'install -m 644 build/*/*.so* $FLATPAK_DEST/lib'
+      - 'install -d $FLATPAK_DEST/include'
+      - 'cp -a include/tbb $FLATPAK_DEST/include'
+      - 'cmake -DINSTALL_DIR=$FLATPAK_DEST/lib/cmake/TBB
+		    -DSYSTEM_NAME=Linux
+        -DTBB_VERSION_FILE=include/tbb/tbb_stddef.h
+		    -DLIB_REL_PATH="../../"
+		    -DINC_REL_PATH="../../../../include"
+		    -P cmake/tbb_config_installer.cmake'
+
+    cleanup:
+      - /include
+      - /lib/*.so
+      - /lib/cmake
+
+  # - name: protobuf
+  #   sources:
+  #     - type: git
+  #       url: https://github.com/protocolbuffers/protobuf
+  #       tag: v3.11.4
+  #   config-opts:
+  #     - -DBUILD_SHARED_LIBS:BOOL=ON
+  #     - -Dprotobuf_BUILD_TESTS:BOOL=OFF
+  #   buildsystem: cmake
+  #   subdir: cmake
+  #   cleanup:
+  #     - /include
+  #     - /lib/*.so
+  #     - /lib/cmake
+
+  - name: paraview
+    sources:
+      - type: archive
+        url: http://www.paraview.org/files/v5.8/ParaView-v5.8.0.tar.xz
+        md5: 93df5221af66c451d6a1c2253a53fe6b
+    config-opts:
+      # Build options
+      - -DPARAVIEW_BUILD_SHARED_LIBS:BOOL=ON
+      - -DPARAVIEW_BUILD_LEGACY_REMOVE:BOOL=ON
+      #- -DPARAVIEW_BUILD_LEGACY_SILENT:BOOL=ON
+      #- -DPARAVIEW_BUILD_WITH_KITS:BOOL=OFF
+      #- -DPARAVIEW_BUILD_WITH_EXTERNAL:BOOL=OFF
+      #- -DPARAVIEW_BUILD_ALL_MODULES:BOOL=OFF
+      #- -DPARAVIEW_BUILD_EXAMPLES:BOOL=OFF
+      #- -DPARAVIEW_BUILD_TESTING:BOOL=OFF
+      #- -DPARAVIEW_BUILD_DEVELOPER_DOCUMENTATION:BOOL=OFF
+      #- -DPARAVIEW_BUILD_EDITION:STRING=CANONICAL
+      # Capability settings
+      #- -DPARAVIEW_USE_QT:BOOL=ON
+      #- -DPARAVIEW_USE_MPI:BOOL=OFF
+      #- -DPARAVIEW_USE_PYTHON:BOOL=OFF
+      #- -DPARAVIEW_USE_VTKM:BOOL=ON
+      #- -DPARAVIEW_USE_FORTRAN:BOOL=OFF
+      #- -DPARAVIEW_PYTHON_VERSION:STRING=3
+      # Feature settings
+      # - -DPARAVIEW_ENABLE_ADIOS2:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_COSMOTOOLS:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_FFMPEG:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_GDAL:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_LAS:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_MOMENTINVARIANTS:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_MOTIONFX:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_NVPIPE:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_OPENTURNS:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_PDAL:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_RAYTRACING:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_VISITBRIDGE:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_WEB:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_XDMF2:BOOL=OFF
+      # - -DPARAVIEW_ENABLE_XDMF3:BOOL=OFF
+      # Plugin settings
+      - -DPARAVIEW_PLUGINS_DEFAULT:BOOL=OFF
+      # Miscellaneous settings
+      # - -DVTK_DEFAULT_RENDER_WINDOW_OFFSCREEN:BOOL=OFF
+      # - -DVTK_MODULE_USE_EXTERNAL_ParaView_protobuf:BOOL=OFF
+      # - -DVTK_MODULE_USE_EXTERNAL_VTK_eigen:BOOL=ON
+      - -DVTK_MODULE_USE_EXTERNAL_VTK_expat:BOOL=ON
+      - -DVTK_MODULE_USE_EXTERNAL_VTK_freetype:BOOL=ON
+      # - -DVTK_MODULE_USE_EXTERNAL_VTK_glew:BOOL=ON
+      # - -DVTK_MODULE_USE_EXTERNAL_VTK_hdf5:BOOL=OFF
+      - -DVTK_MODULE_USE_EXTERNAL_VTK_libxml2:BOOL=ON
+      # - -DVTK_MODULE_USE_EXTERNAL_VTK_netcdf:BOOL=OFF
+      - -DVTK_MODULE_USE_EXTERNAL_VTK_lzma:BOOL=ON
+      - -DVTK_MODULE_USE_EXTERNAL_VTK_jpeg:BOOL=ON
+      - -DVTK_MODULE_USE_EXTERNAL_VTK_ogg:BOOL=ON
+      - -DVTK_MODULE_USE_EXTERNAL_VTK_png:BOOL=ON
+      # - -DVTK_MODULE_USE_EXTERNAL_VTK_sqlite:BOOL=ON
+      - -DVTK_MODULE_USE_EXTERNAL_VTK_theora:BOOL=ON
+      - -DVTK_MODULE_USE_EXTERNAL_VTK_tiff:BOOL=ON
+      # - -DVTK_MODULE_USE_EXTERNAL_VTK_utf8:BOOL=ON
+      # - -DVTK_MODULE_USE_EXTERNAL_VTK_xdmf2:BOOL=ON
+      # - -DVTK_MODULE_USE_EXTERNAL_VTK_xdmf3:BOOL=ON
+      - -DVTK_MODULE_USE_EXTERNAL_VTK_zlib:BOOL=ON
+      - -DVTK_SMP_IMPLEMENTATION_TYPE:STRING=TBB
+      - -DVTK_USE_X:BOOL=ON
+      # - -DPARAVIEW_INITIALIZE_MPI_ON_CLIENT:BOOL=ON
+      # - -DPARAVIEW_USE_QTHELP:BOOL=ON
+      # - -DPARAVIEW_VERSIONED_INSTALL:BOOL=OFF
+      # - -DPARAVIEW_CUSTOM_LIBRARY_SUFFIX:STRING=""
+      - -DPARAVIEW_INSTALL_DEVELOPMENT_FILES:BOOL=OFF
+      #- -DPARAVIEW_RELOCATABLE_INSTALL:BOOL=OFF
+    buildsystem: cmake-ninja
+    builddir: true
