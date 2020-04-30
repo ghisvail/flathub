@@ -3,6 +3,7 @@ runtime: org.gnome.Platform
 runtime-version: '3.36'
 sdk: org.gnome.Sdk
 command: bsnes
+rename-desktop-file: bsnes.desktop
 finish-args:
   - --share=ipc
   - --share=network
@@ -19,11 +20,23 @@ modules:
         sha256: 691b074a37b2a307f7f48edc5b8c7afa7301709be56378ccf9cc9735909077fd
     config-opts:
       - --disable-vala
+    cleanup:
+      - /include
+      - /lib/*.la
+      - /lib/*.so
+      - /lib/pkgconfig
+      - /share
   - name: libao
     sources:
       - type: archive
         url: https://downloads.xiph.org/releases/ao/libao-1.2.0.tar.gz
         sha256: 03ad231ad1f9d64b52474392d63c31197b0bc7bd416e58b1c10a329a5ed89caf
+    cleanup:
+      - /include
+      - /lib/*.la
+      - /lib/*.so
+      - /lib/pkgconfig
+      - /share
   - name: bsnes
     sources:
       - type: archive
@@ -31,5 +44,6 @@ modules:
         sha256: 4f983feda32f5f6e494f8ea5363fc97ebfe92e0d7b78d71ebe013ed7933e2386
     buildsystem: simple
     build-commands:
-      - 'make -C bsnes local=false hiro=gtk3'
-      - 'install -D -m 755 -t $FLATPAK_DEST/bin bsnes/out/bsnes'
+      - 'make -C bsnes install prefix=$FLATPAK_DEST local=false hiro=gtk3'
+      - 'install -d $FLATPAK_DEST/share/icons/hicolor/256x256/apps'
+      - 'mv $FLATPAK_DEST/share/icons/bsnes.png $FLATPAK_DEST/share/icons/hicolor/256x256/apps/$FLATPAK_ID.png'
