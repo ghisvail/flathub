@@ -32,7 +32,7 @@ modules:
     buildsystem: simple
     build-commands:
       - 'make -C genius'
-      - 'make -C higan target=higan profile=accuracy build=performance local=false hiro=gtk3'
+      - 'make -C higan local=false hiro=gtk3'
       - 'make -C icarus'
       - 'install -D -m 755 -t $FLATPAK_DEST/bin genius/out/genius'
       - 'install -D -m 755 -t $FLATPAK_DEST/bin higan/out/higan'
