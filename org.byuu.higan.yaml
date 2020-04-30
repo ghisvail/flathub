@@ -1,0 +1,39 @@
+app-id: org.byuu.higan
+runtime: org.gnome.Platform
+runtime-version: '3.36'
+sdk: org.gnome.Sdk
+command: higan
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=pulseaudio
+  - --socket=x11
+  - --device=dri
+  - --filesystem=home
+  - --talk-name=org.a11y.*
+modules:
+  - name: gtksourceview
+    sources:
+      - type: archive
+        url: https://download.gnome.org/sources/gtksourceview/3.24/gtksourceview-3.24.11.tar.xz
+        sha256: 691b074a37b2a307f7f48edc5b8c7afa7301709be56378ccf9cc9735909077fd
+    config-opts:
+      - --disable-vala
+  - name: libao
+    sources:
+      - type: archive
+        url: https://downloads.xiph.org/releases/ao/libao-1.2.0.tar.gz
+        sha256: 03ad231ad1f9d64b52474392d63c31197b0bc7bd416e58b1c10a329a5ed89caf
+  - name: higan
+    sources:
+      - type: archive
+        url: https://byuu.org/download/higan/higan_v110-source.zip
+        sha256: 1b70d85454aaae557fd5ba5aaed9add8cb8c939f2b7a07a6d3734f971bb07ab7
+    buildsystem: simple
+    build-commands:
+      - 'make -C genius'
+      - 'make -C higan target=higan profile=accuracy build=performance local=false hiro=gtk3'
+      - 'make -C icarus'
+      - 'install -D -m 755 -t $FLATPAK_DEST/bin genius/out/genius'
+      - 'install -D -m 755 -t $FLATPAK_DEST/bin higan/out/higan'
+      - 'install -D -m 755 -t $FLATPAK_DEST/bin icarus/out/icarus'
