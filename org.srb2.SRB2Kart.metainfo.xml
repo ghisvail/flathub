@@ -5,14 +5,14 @@
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Sonic Robo Blast 2 Kart</name>
-  <summary>A kart racing mod based on the 3D Sonic the Hedgehog fangame Sonic Robo Blast 2</summary>
+  <summary>A kart racing game based on the fangame Sonic Robo Blast 2</summary>
   <description>
     <p>
-      Sonic Robo Blast 2 Kart (usually shortened to SRB2Kart or SRB2K) is a
-      kart racing game with Sonic-themed characters, items and race tracks.
-      SRB2Kart features over 100 maps for two game modes: the main Race mode
-      and a Battle mode where players fight each other using the items
-      available in the game.
+      Sonic Robo Blast 2 Kart (often shortened to SRB2Kart or SRB2K) is a
+      fan-created kart racing game with retro graphics that play homage to
+      pop-culture video game characters.  SRB2Kart features over 100 maps
+      for two game modes: the main Race mode and a Battle mode where players
+      fight each other using the items available in the game.
     </p>
   </description>
   <launchable type="desktop-id">org.srb2.SRB2Kart.desktop</launchable>
