@@ -50,15 +50,24 @@ modules:
         path: org.srb2.SRB2Kart.desktop
       - type: file
         path: org.srb2.SRB2Kart.metainfo.xml
+
+  - name: assets
+    buildsystem: simple
+    build-commands:
+      - install -t $FLATPAK_DEST/bin apply_extra
+    sources:
       - type: extra-data
-        url: https://github.com/STJr/Kart-Public/releases/download/v1.2/srb2kart-v12-Installer.exe
-        sha256: 57284de43a2889c0a60ce8fee77df22095fcd31beef6130cbeed1ead0bebbfec
         filename: srb2kart-v12-Installer.exe
+        url: https://github.com/STJr/Kart-Public/releases/download/v1.2/srb2kart-v12-Installer.exe
+        # url: http://localhost:8080/srb2kart-v12-Installer.exe
+        # debug: `python -m http.server 8080`
+        sha256: 57284de43a2889c0a60ce8fee77df22095fcd31beef6130cbeed1ead0bebbfec
         size: 200732615
+      - type: script
+        dest-filename: apply_extra
         commands:
-          - mkdir tmp
-          - cd tmp; 7za x ../srb2kart-v12-Installer.exe
-          - mkdir -p $FLATPAK_TODO_USER_VAR/sth/sth
-          - cp tmp/srb2.srb $FLATPAK_TODO_USER_VAR/sth/sth
-          - cp tmp/{patch,gfx,textures,chars,maps}.kart $FLATPAK_TODO_USER_VAR/sth/sth
-          - cp tmp/{music,sounds,bonuschars}.kart $FLATPAK_TODO_USER_VAR/sth/sth
+          - 7za e srb2kart-v12-Installer.exe srb2.srb patch.kart gfx.kart textures.kart chars.kart maps.kart music.kart sounds.kart bonuschars.kart > /dev/null
+          - rm srb2kart-v12-Installer.exe
+          - #cp srb2.srb /app/share/games/SRB2Kart/
+          - #cp {patch,gfx,textures,chars,maps}.kart /app/share/games/SRB2Kart/
+          - #cp {music,sounds,bonuschars}.kart /app/share/games/SRB2Kart/
