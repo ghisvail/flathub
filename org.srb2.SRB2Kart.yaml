@@ -52,6 +52,8 @@ modules:
         commit: f856f18233da492c9446f70a2856e2e178ddfd1a
       - type: script
         commands:
+          - # TODO: what if someone wants to use a custom value?
+          - export SRB2WADDIR=/app/extra
           - lsdl2srb2kart "$@"
         dest-filename: srb2kart.sh
       - type: file
