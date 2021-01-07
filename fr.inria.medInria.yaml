@@ -1,0 +1,158 @@
+app-id: fr.inria.medInria
+runtime: org.kde.Platform
+runtime-version: '5.14'
+sdk: org.kde.Sdk
+command: medinria
+modules:
+  - name: boost
+    buildsystem: simple
+    build-commands:
+      - ./bootstrap.sh --prefix=$FLATPAK_DEST --with-libraries=math
+      - ./b2 headers -j $FLATPAK_BUILDER_N_JOBS
+      - ./b2 install -j $FLATPAK_BUILDER_N_JOBS
+    sources:
+      - type: archive
+        url: https://dl.bintray.com/boostorg/release/1.73.0/source/boost_1_73_0.tar.bz2
+        sha256: 4eb3b8d442b426dc35346235c8733b5ae35ba431690e38c6a8263dce9fcbb402
+
+  - name: dtk
+    config-opts:
+      - -DDTK_BUILD_COMPOSER=ON                                                                                                                                                                                                                                                                                        
+      - -DDTK_BUILD_DISTRIBUTED=ON                                                                                                                                                                                                                                                                                        
+      - -DDTK_BUILD_SCRIPT=OFF                                                                                                                                                                                                                                                                                       
+      - -DDTK_BUILD_SUPPORT_COMPOSER=OFF                                                                                                                                                                                                                                                                                       
+      - -DDTK_BUILD_SUPPORT_CONTAINER=OFF                                                                                                                                                                                                                                                                                       
+      - -DDTK_BUILD_SUPPORT_CORE=ON                                                                                                                                                                                                                                                                                        
+      - -DDTK_BUILD_SUPPORT_DISTRIBUTED=OFF                                                                                                                                                                                                                                                                                       
+      - -DDTK_BUILD_SUPPORT_GUI=ON                                                                                                                                                                                                                                                                                        
+      - -DDTK_BUILD_SUPPORT_MATH=ON                                                                                                                                                                                                                                                                                        
+      - -DDTK_BUILD_SUPPORT_PLOT=OFF                                                                                                                                                                                                                                                                                       
+      - -DDTK_BUILD_SUPPORT_VR=ON                                                                                                                                                                                                                                                                                        
+      - -DDTK_BUILD_WRAPPERS=OFF
+    buildsystem: cmake-ninja
+    sources:
+      - type: git
+        url: https://gitlab.inria.fr/dtk/dtk.git
+        tag: '1.7.1'
+        commit: 17989ebed630d26f35dd0021c8b5c478b776873c
+
+  - name: vtk
+    config-opts:
+      - -DBUILD_EXAMPLES:BOOL=OFF
+      - -DBUILD_SHARED_LIBS:BOOL=ON
+      - -DBUILD_TESTING:BOOL=OFF
+      - -DModule_vtkGUISupportQtOpenGL:BOOL=ON
+      - -DOpenGL_GL_PREFERENCE:STRING=GLVND
+      - -DVTK_Group_Qt:BOOL=ON
+      - -DVTK_QT_VERSION:STRING=5
+      - -DVTK_RENDERING_BACKEND:STRING=OpenGL2
+      - -DVTK_USE_SYSTEM_EXPAT:BOOL=ON
+      - -DVTK_USE_SYSTEM_FREETYPE:BOOL=ON
+      - -DVTK_USE_SYSTEM_JPEG:BOOL=ON
+      - -DVTK_USE_SYSTEM_LIBXML2:BOOL=ON
+      # - -DVTK_USE_SYSTEM_LZ4:BOOL=ON
+      - -DVTK_USE_SYSTEM_LZMA:BOOL=ON
+      - -DVTK_USE_SYSTEM_OGG:BOOL=ON
+      - -DVTK_USE_SYSTEM_PNG:BOOL=ON
+      - -DVTK_USE_SYSTEM_SQLITE:BOOL=ON
+      - -DVTK_USE_SYSTEM_THEORA:BOOL=ON
+      - -DVTK_USE_SYSTEM_TIFF:BOOL=ON
+      - -DVTK_USE_SYSTEM_ZLIB:BOOL=ON
+    buildsystem: cmake-ninja
+    builddir: true
+    sources:
+      - type: git
+        url: https://github.com/Kitware/VTK.git
+        tag: v8.2.0
+        commit: e3de2c35c9f44fd6d16ad4c6b6527de7c4f677c7
+
+  - name: itk
+    config-opts:
+      - -DBUILD_EXAMPLES:BOOL=OFF
+      - -DBUILD_SHARED_LIBS:BOOL=ON
+      - -DBUILD_TESTING:BOOL=OFF
+      - -DITK_FORBID_DOWNLOADS:BOOL=OFF
+      - -DITK_LEGACY_REMOVE:BOOL=ON
+      - -DITK_USE_SYSTEM_JPEG=ON
+      - -DITK_USE_SYSTEM_PNG=ON
+      - -DITK_USE_SYSTEM_TIFF=ON
+      - -DITK_USE_SYSTEM_ZLIB=ON
+      - -DModule_ITKIOPhilipsREC:BOOL=ON
+      - -DModule_ITKReview:BOOL=ON
+      - -DModule_ITKVtkGlue:BOOL=ON
+    buildsystem: cmake-ninja
+    builddir: true
+    sources:
+      - type: git
+        url: https://github.com/InsightSoftwareConsortium/ITK.git
+        tag: v5.1.1
+        commit: 3ecf6c87d18d51b124589d5a74389244d692109c
+
+  - name: dcmtk
+    config-opts:
+      - -DBUILD_APPS:BOOL=OFF
+      - -DBUILD_SHARED_LIBS:BOOL=ON
+      - -DDCMTK_ENABLE_CXX11:BOOL=ON
+      - -DDCMTK_ENABLE_STL:BOOL=ON
+      - -DDCMTK_ENABLE_BUILTIN_DICTIONARY:BOOL=ON
+      - -DDCMTK_ENABLE_PRIVATE_TAGS:BOOL=ON
+      - -DDCMTK_FORCE_FPIC_ON_UNIX:BOOL=ON
+    buildsystem: cmake-ninja
+    builddir: true
+    sources:
+      - type: git
+        url: https://github.com/DCMTK/dcmtk
+        tag: DCMTK-3.6.2
+        commit: e4df3575fd590bea865e017c84c8f880a9a6c1c0
+
+  - name: rpi
+    config-opts:
+      - -DBUILD_SHARED_LIBS:BOOL=ON
+    buildsystem: cmake-ninja
+    builddir: true
+    post-install:
+      - cp $FLATPAK_BUILDER_BUILDDIR/RegistrationAddOn/*.{h,txx} $FLATPAK_DEST/include
+      - cp $FLATPAK_BUILDER_BUILDDIR/src/*.{hxx,cxx} $FLATPAK_DEST/include
+    sources:
+      - type: git
+        url: https://github.com/medInria/RPI.git
+        tag: ITK5.1.1
+
+  - name: ttk
+    config-opts:
+      - -DBUILD_SHARED_LIBS:BOOL=ON
+      - -DBUILD_TESTING:BOOL=OFF
+    buildsystem: cmake-ninja
+    builddir: true
+    sources:
+      - type: git
+        url: https://github.com/medInria/TTK-Public.git
+        tag: ITK5.1.1
+
+  - name: logdaemons
+    config-opts:
+      - -DBUILD_SHARED_LIBS:BOOL=ON
+      - -DLOG_DEMONS_BUILD_PLUGIN:BOOL=OFF
+    buildsystem: cmake-ninja
+    builddir: true
+    post-install:
+      - install -D -m 644 -t $FLATPAK_DEST/lib $FLATPAK_BUILDER_BUILDDIR/_flatpak_build/LogDemonsConfig.cmake
+      - install -D -m 644 -t $FLATPAK_DEST/lib $FLATPAK_BUILDER_BUILDDIR/_flatpak_build/LogDemonsUse.cmake
+    sources:
+      - type: git
+        url: https://github.com/medInria/LCC-LogDemons
+        commit: ITK5.1.1
+
+  - name: medinria
+    config-opts:
+      - -DLogDemons_DIR=$FLATPAK_BUILDER_BUILDDIR/../logdaemons/_flatpak_build
+      - -DOpenGL_GL_PREFERENCE:STRING=GLVND
+      - -DTTK_DIR:PATH=/app/lib
+      - -DUSE_FFMPEG:BOOL=ON
+    buildsystem: cmake-ninja
+    subdir: src
+    sources:
+      - type: git
+        url: https://github.com/medInria/medInria-public.git
+        tag: V3.1.1
+        commit: 92ae86ed096219e7b084a5f031926f03c5a106e6
