@@ -1,0 +1,43 @@
+app-id: io.github.sameboy.SameBoy
+runtime: org.freedesktop.Platform
+runtime-version: '20.08'
+sdk: org.freedesktop.Sdk
+command: sameboy
+separate-locales: false
+rename-desktop-file: sameboy.desktop
+rename-icon: sameboy
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=pulseaudio
+  - --socket=wayland
+  - --device=dri
+modules:
+  - name: rgbds
+    buildsystem: cmake-ninja
+    builddir: true
+    cleanup:
+      - '*'
+    sources:
+      - type: archive
+        url: https://github.com/gbdev/rgbds/releases/download/v0.5.1/rgbds-0.5.1.tar.gz
+        sha256: e42a4b6a7f45e5e6ebc56c513f5607c6adcccb1b7f44c0cb35fef428ed9cbe8c
+
+  - name: sameboy
+    buildsystem: simple
+    build-options:
+      cflags: -O2 -g
+      cxxflags: -O2 -g
+    build-commands:
+      - make install CONF=debug PREFIX=$FLATPAK_DEST/ DESTDIR=/
+      - mv $FLATPAK_DEST/share/mime/packages/{sameboy,$FLATPAK_ID}.xml
+      - |
+        for size in 16 32 64 128 256 512
+        do
+          mv $FLATPAK_DEST/share/icons/hicolor/${size}x${size}/mimetypes/{x-gameboy-color-rom,$FLATPAK_ID.x-gameboy-color-rom}.png
+          mv $FLATPAK_DEST/share/icons/hicolor/${size}x${size}/mimetypes/{x-gameboy-rom,$FLATPAK_ID.x-gameboy-rom}.png
+        done
+    sources:
+      - type: archive
+        url: https://github.com/LIJI32/SameBoy/archive/v0.14.5/SameBoy-0.14.5.tar.gz
+        sha256: a0863cae698d44983fd1f126bafcee1a76cd6d059debe438a28ca14568bcec70
